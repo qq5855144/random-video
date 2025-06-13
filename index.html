@@ -1,231 +1,737 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>看看美女增强免疫力</title>
+    <title>双色球号码生成器 - 典雅版</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            background: linear-gradient(to bottom right, #1a1a1a, #333333);
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
+    /* 全局样式重置 */
+    * {
+        margin: 0;          /* 移除所有元素的外边距 */
+        padding: 0;         /* 移除所有元素的内边距 */
+        box-sizing: border-box; /* 元素尺寸包含边框和内边距 */
+        font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, sans-serif; /* 设置默认字体 */
+    }
+    
+    /* 页面主体样式 */
+    body {
+        background: linear-gradient(135deg, #1a0a2e, #33135c, #1a0a2e); /* 深紫色渐变背景 */
+        min-height: 100vh;   /* 最小高度为视口高度 */
+        display: flex;       /* 启用弹性布局 */
+        flex-direction: column; /* 垂直排列子元素 */
+        align-items: center;    /* 水平居中 */
+        padding: 20px;       /* 内边距 */
+        color: #fff;         /* 文本颜色 */
+    }
+    
+    /* 页眉样式 */
+    .header {
+        text-align: center;   /* 文本居中 */
+        margin: 30px 0;      /* 上下外边距 */
+        width: 100%;         /* 宽度100% */
+        position: relative;  /* 相对定位 */
+    }
+    
+    /* 页眉下方的装饰线 */
+    .header::after {
+        content: "";         /* 伪元素内容 */
+        position: absolute;  /* 绝对定位 */
+        bottom: -10px;       /* 定位在底部 */
+        left: 50%;           /* 水平居中 */
+        transform: translateX(-50%); /* 精确居中 */
+        width: 250px;        /* 宽度 */
+        height: 4px;         /* 高度 */
+        background: linear-gradient(to right, transparent, #d4af37, transparent); /* 金色渐变线条 */
+        border-radius: 2px;  /* 圆角 */
+    }
+    
+    /* 主标题样式 */
+    .header h1 {
+        font-size: 2.8rem;   /* 字体大小 */
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); /* 金色文字阴影 */
+        margin-bottom: 15px; /* 下边距 */
+        background: linear-gradient(to right, #d4af37, #f9e076); /* 金色渐变背景 */
+        -webkit-background-clip: text; /* 将背景裁剪为文字形状 */
+        -webkit-text-fill-color: transparent; /* 文字颜色透明以显示背景 */
+        letter-spacing: 1px; /* 字间距 */
+    }
+    
+    /* 副标题样式 */
+    .header p {
+        font-size: 1.2rem;  /* 字体大小 */
+        max-width: 800px;   /* 最大宽度 */
+        margin: 0 auto;     /* 水平居中 */
+        color: #d0c9e0;     /* 淡紫色文字 */
+        line-height: 1.6;   /* 行高 */
+        letter-spacing: 0.5px; /* 字间距 */
+    }
+    
+    /* 主容器样式 */
+    .container {
+        display: flex;      /* 弹性布局 */
+        flex-wrap: wrap;    /* 允许换行 */
+        justify-content: center; /* 水平居中 */
+        gap: 30px;          /* 元素间距 */
+        max-width: 1200px;  /* 最大宽度 */
+        width: 100%;        /* 宽度100% */
+        margin-top: 10px;   /* 上边距 */
+    }
+    
+    /* 控制面板样式 */
+    .control-panel {
+        background: rgba(25, 15, 45, 0.85); /* 半透明深紫色背景 */
+        border-radius: 15px; /* 圆角 */
+        padding: 25px;      /* 内边距 */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 175, 55, 0.2); /* 双层阴影效果 */
+        flex: 1;            /* 弹性扩展 */
+        min-width: 300px;   /* 最小宽度 */
+        max-width: 450px;   /* 最大宽度 */
+        backdrop-filter: blur(8px); /* 毛玻璃效果 */
+        border: 1px solid rgba(212, 175, 55, 0.15); /* 金色边框 */
+    }
+    
+    /* 结果面板样式 */
+    .result-panel {
+        background: rgba(25, 15, 45, 0.85); /* 半透明深紫色背景 */
+        border-radius: 15px; /* 圆角 */
+        padding: 25px;      /* 内边距 */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 175, 55, 0.2); /* 双层阴影效果 */
+        flex: 1;            /* 弹性扩展 */
+        min-width: 300px;   /* 最小宽度 */
+        max-width: 600px;   /* 最大宽度 */
+        backdrop-filter: blur(8px); /* 毛玻璃效果 */
+        border: 1px solid rgba(212, 175, 55, 0.15); /* 金色边框 */
+    }
+    
+    /* 面板标题样式 */
+    .panel-title {
+        font-size: 1.8rem;  /* 字体大小 */
+        margin-bottom: 20px; /* 下边距 */
+        text-align: center;  /* 文本居中 */
+        color: #d4af37;     /* 金色文字 */
+        padding-bottom: 10px; /* 底部内边距 */
+        position: relative; /* 相对定位 */
+        letter-spacing: 1px; /* 字间距 */
+    }
+    
+    /* 面板标题下方的装饰线 */
+    .panel-title::after {
+        content: "";         /* 伪元素内容 */
+        position: absolute;  /* 绝对定位 */
+        bottom: 0;           /* 定位在底部 */
+        left: 50%;           /* 水平居中 */
+        transform: translateX(-50%); /* 精确居中 */
+        width: 80px;         /* 宽度 */
+        height: 3px;         /* 高度 */
+        background: linear-gradient(to right, #d4af37, #f9e076, #d4af37); /* 金色渐变 */
+        border-radius: 2px;  /* 圆角 */
+    }
+    
+    /* 控制组样式 */
+    .control-group {
+        margin-bottom: 25px; /* 下边距 */
+    }
+    
+    /* 控制标签样式 */
+    .control-label {
+        display: block;     /* 块级元素 */
+        margin-bottom: 10px; /* 下边距 */
+        font-size: 1.2rem;  /* 字体大小 */
+        color: #d4af37;     /* 金色文字 */
+        font-weight: 500;   /* 字体粗细 */
+    }
+    
+    /* 滑块容器 */
+    .slider-container {
+        display: flex;      /* 弹性布局 */
+        align-items: center; /* 垂直居中 */
+        gap: 15px;          /* 元素间距 */
+    }
+    
+    /* 滑块输入样式 */
+    input[type="range"] {
+        flex: 1;            /* 占据剩余空间 */
+        height: 10px;       /* 高度 */
+        background: #3a2b5c; /* 背景色 */
+        border-radius: 5px; /* 圆角 */
+        outline: none;      /* 移除轮廓 */
+        -webkit-appearance: none; /* 移除默认样式 */
+        border: 1px solid rgba(212, 175, 55, 0.2); /* 边框 */
+    }
+    
+    /* 滑块手柄样式 (Webkit) */
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none; /* 移除默认样式 */
+        width: 22px;        /* 宽度 */
+        height: 22px;       /* 高度 */
+        background: #d4af37; /* 金色背景 */
+        border-radius: 50%; /* 圆形 */
+        cursor: pointer;    /* 指针样式 */
+        transition: all 0.3s; /* 过渡效果 */
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.7); /* 阴影 */
+        border: 2px solid #f9e076; /* 边框 */
+    }
+    
+    /* 滑块手柄悬停效果 */
+    input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.2); /* 放大 */
+        background: #f9e076;  /* 浅金色 */
+    }
+    
+    /* 数值显示样式 */
+    .value-display {
+        min-width: 40px;    /* 最小宽度 */
+        text-align: center; /* 文本居中 */
+        font-size: 1.2rem;  /* 字体大小 */
+        font-weight: bold;  /* 粗体 */
+        color: #d4af37;     /* 金色文字 */
+        background: rgba(40, 25, 70, 0.6); /* 半透明背景 */
+        padding: 5px 10px;  /* 内边距 */
+        border-radius: 5px; /* 圆角 */
+        border: 1px solid rgba(212, 175, 55, 0.2); /* 边框 */
+    }
+    
+    /* 生成按钮样式 */
+    .generate-btn {
+        display: block;     /* 块级元素 */
+        width: 100%;        /* 宽度100% */
+        padding: 15px;      /* 内边距 */
+        font-size: 1.4rem;  /* 字体大小 */
+        background: linear-gradient(to right, #8a65aa, #6a4a8f); /* 紫色渐变 */
+        color: white;       /* 文字颜色 */
+        border: none;       /* 无边框 */
+        border-radius: 8px; /* 圆角 */
+        cursor: pointer;    /* 指针样式 */
+        transition: all 0.3s; /* 过渡效果 */
+        font-weight: bold;  /* 粗体 */
+        letter-spacing: 1px; /* 字间距 */
+        margin-top: 20px;   /* 上边距 */
+        box-shadow: 0 5px 15px rgba(106, 74, 143, 0.4); /* 阴影 */
+        position: relative; /* 相对定位 */
+        overflow: hidden;   /* 溢出隐藏 */
+    }
+    
+    /* 按钮悬停效果 */
+    .generate-btn:hover {
+        transform: translateY(-3px); /* 上移 */
+        box-shadow: 0 8px 20px rgba(138, 101, 170, 0.6); /* 增大阴影 */
+    }
+    
+    /* 按钮点击效果 */
+    .generate-btn:active {
+        transform: translateY(0); /* 恢复原位 */
+    }
+    
+    /* 按钮高光效果 */
+    .generate-btn::after {
+        content: "";         /* 伪元素内容 */
+        position: absolute;  /* 绝对定位 */
+        top: -50%;           /* 定位 */
+        left: -50%;          /* 定位 */
+        width: 200%;         /* 宽度 */
+        height: 200%;        /* 高度 */
+        background: linear-gradient(rgba(255,255,255,0.1), transparent); /* 高光渐变 */
+        transform: rotate(30deg); /* 旋转 */
+    }
+    
+    /* 结果容器 */
+    .results-container {
+        min-height: 300px;  /* 最小高度 */
+    }
+    
+    /* 结果组样式 */
+    .result-group {
+        background: rgba(35, 20, 60, 0.7); /* 半透明背景 */
+        border-radius: 10px; /* 圆角 */
+        padding: 15px;      /* 内边距 */
+        margin-bottom: 15px; /* 下边距 */
+        animation: fadeIn 0.5s ease-out; /* 淡入动画 */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* 阴影 */
+        border: 1px solid rgba(212, 175, 55, 0.1); /* 边框 */
+    }
+    
+    /* 组头部样式 */
+    .group-header {
+        display: flex;      /* 弹性布局 */
+        justify-content: space-between; /* 两端对齐 */
+        align-items: center; /* 垂直居中 */
+        margin-bottom: 10px; /* 下边距 */
+        padding-bottom: 5px; /* 底部内边距 */
+        position: relative; /* 相对定位 */
+    }
+    
+    /* 组头部分隔线 */
+    .group-header::after {
+        content: "";         /* 伪元素内容 */
+        position: absolute;  /* 绝对定位 */
+        bottom: 0;           /* 定位在底部 */
+        left: 0;             /* 左侧对齐 */
+        width: 100%;         /* 宽度100% */
+        height: 1px;         /* 高度 */
+        background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.4), transparent); /* 渐变分隔线 */
+    }
+    
+    /* 组标题样式 */
+    .group-title {
+        font-size: 1.2rem;  /* 字体大小 */
+        color: #d4af37;     /* 金色文字 */
+        font-weight: 500;   /* 字体粗细 */
+    }
+    
+    /* 号码容器 */
+    .numbers-container {
+        display: flex;      /* 弹性布局 */
+        flex-wrap: wrap;    /* 允许换行 */
+        gap: 10px;          /* 元素间距 */
+        padding: 10px 5px;  /* 内边距 */
+        justify-content: center; /* 水平居中 */
+    }
+    
+    /* 红球样式 */
+    .red-ball {
+        width: 25px;        /* 宽度 */
+        height: 25px;       /* 高度 */
+        border-radius: 50%; /* 圆形 */
+        display: flex;      /* 弹性布局 */
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        font-size: 0.8rem;  /* 字体大小 */
+        font-weight: bold;  /* 粗体 */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* 阴影 */
+        transition: all 0.3s; /* 过渡效果 */
+        position: relative; /* 相对定位 */
+        overflow: hidden;   /* 溢出隐藏 */
+    }
+    
+    /* 蓝球样式 */
+    .blue-ball {
+        width: 25px;        /* 宽度 */
+        height: 25px;       /* 高度 */
+        border-radius: 50%; /* 圆形 */
+        display: flex;      /* 弹性布局 */
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        font-size: 0.8rem;  /* 字体大小 */
+        font-weight: bold;  /* 粗体 */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* 阴影 */
+        transition: all 0.3s; /* 过渡效果 */
+        position: relative; /* 相对定位 */
+        overflow: hidden;   /* 溢出隐藏 */
+    }
+    
+    /* 球的高光效果 */
+    .red-ball::before, .blue-ball::before {
+        content: "";         /* 伪元素内容 */
+        position: absolute;  /* 绝对定位 */
+        top: 2px;            /* 定位 */
+        left: 2px;           /* 定位 */
+        width: 7px;          /* 宽度 */
+        height: 7px;         /* 高度 */
+        border-radius: 50%;  /* 圆形 */
+        background: rgba(255, 255, 255, 0.4); /* 半透明白色 */
+    }
+    
+    /* 球悬停效果 */
+    .red-ball:hover, .blue-ball:hover {
+        transform: scale(1.2); /* 放大 */
+    }
+    
+    /* 红球渐变背景和动画 */
+    .red-ball {
+        background: radial-gradient(circle at 30% 30%, #ff5f6d, #c12c5c); /* 红球渐变 */
+        color: white;       /* 文字颜色 */
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* 文字阴影 */
+        animation: pulseRed 2s infinite alternate; /* 脉动动画 */
+    }
+    
+    /* 蓝球渐变背景和动画 */
+    .blue-ball {
+        background: radial-gradient(circle at 30% 30%, #4facfe, #2a52c4); /* 蓝球渐变 */
+        color: white;       /* 文字颜色 */
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* 文字阴影 */
+        animation: pulseBlue 2s infinite alternate; /* 脉动动画 */
+    }
+    
+    /* 分隔符样式 */
+    .divider {
+        display: flex;      /* 弹性布局 */
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
+        font-size: 1.2rem;  /* 字体大小 */
+        font-weight: bold;  /* 粗体 */
+        color: #d4af37;     /* 金色文字 */
+        margin: 0 5px;      /* 外边距 */
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.4); /* 文字阴影 */
+    }
+    
+    /* 信息面板样式 */
+    .info-panel {
+        background: rgba(25, 15, 45, 0.85); /* 半透明背景 */
+        border-radius: 15px; /* 圆角 */
+        padding: 20px;      /* 内边距 */
+        margin-top: 30px;   /* 上边距 */
+        max-width: 1200px;  /* 最大宽度 */
+        width: 100%;        /* 宽度100% */
+        backdrop-filter: blur(8px); /* 毛玻璃效果 */
+        border: 1px solid rgba(212, 175, 55, 0.15); /* 边框 */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* 阴影 */
+    }
+    
+    /* 信息面板标题 */
+    .info-panel h2 {
+        color: #d4af37;     /* 金色文字 */
+        margin-bottom: 20px; /* 下边距 */
+        text-align: center;  /* 文本居中 */
+        font-size: 1.8rem;  /* 字体大小 */
+        position: relative; /* 相对定位 */
+        padding-bottom: 10px; /* 底部内边距 */
+    }
+    
+    /* 信息面板标题装饰线 */
+    .info-panel h2::after {
+        content: "";         /* 伪元素内容 */
+        position: absolute;  /* 绝对定位 */
+        bottom: 0;           /* 定位在底部 */
+        left: 50%;           /* 水平居中 */
+        transform: translateX(-50%); /* 精确居中 */
+        width: 150px;        /* 宽度 */
+        height: 3px;         /* 高度 */
+        background: linear-gradient(to right, #d4af37, #f9e076, #d4af37); /* 金色渐变 */
+        border-radius: 2px;  /* 圆角 */
+    }
+    
+    /* 提示容器 */
+    .tips {
+        display: grid;      /* 网格布局 */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 自适应列 */
+        gap: 20px;          /* 元素间距 */
+    }
+    
+    /* 提示样式 */
+    .tip {
+        background: rgba(35, 20, 60, 0.7); /* 半透明背景 */
+        padding: 20px;      /* 内边距 */
+        border-radius: 10px; /* 圆角 */
+        border-left: 4px solid #d4af37; /* 左侧金色边框 */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 阴影 */
+        transition: transform 0.3s; /* 过渡效果 */
+    }
+    
+    /* 提示悬停效果 */
+    .tip:hover {
+        transform: translateY(-5px); /* 上移 */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* 增大阴影 */
+    }
+    
+    /* 提示标题 */
+    .tip h3 {
+        color: #f9e076;     /* 浅金色 */
+        margin-bottom: 10px; /* 下边距 */
+        font-size: 1.3rem;  /* 字体大小 */
+    }
+    
+    /* 提示内容 */
+    .tip p {
+        color: #d0c9e0;     /* 淡紫色文字 */
+        line-height: 1.6;   /* 行高 */
+        font-size: 1.05rem; /* 字体大小 */
+    }
+    
+    /* 淡入动画 */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); } /* 起始状态 */
+        to { opacity: 1; transform: translateY(0); }     /* 结束状态 */
+    }
+    
+    /* 球弹出动画 */
+    .ball-animation {
+        animation: ballPop 0.5s ease-out; /* 应用动画 */
+    }
+    
+    /* 球弹出动画定义 */
+    @keyframes ballPop {
+        0% { transform: scale(0); }      /* 起始状态 */
+        70% { transform: scale(1.2); }   /* 中间状态 */
+        100% { transform: scale(1); }    /* 结束状态 */
+    }
+    
+    /* 红球脉动动画 */
+    @keyframes pulseRed {
+        0% { box-shadow: 0 0 0 0 rgba(193, 44, 92, 0.7); } /* 起始状态 */
+        70% { box-shadow: 0 0 0 10px rgba(193, 44, 92, 0); } /* 中间状态 */
+        100% { box-shadow: 0 0 0 0 rgba(193, 44, 92, 0); } /* 结束状态 */
+    }
+    
+    /* 蓝球脉动动画 */
+    @keyframes pulseBlue {
+        0% { box-shadow: 0 0 0 0 rgba(42, 82, 196, 0.7); } /* 起始状态 */
+        70% { box-shadow: 0 0 0 10px rgba(42, 82, 196, 0); } /* 中间状态 */
+        100% { box-shadow: 0 0 0 0 rgba(42, 82, 196, 0); } /* 结束状态 */
+    }
+    
+    /* 复制按钮 */
+    .copy-btn {
+        display: block;     /* 块级元素 */
+        width: 100%;        /* 宽度100% */
+        padding: 15px;      /* 内边距 */
+        font-size: 1.4rem;  /* 字体大小 */
+        background: linear-gradient(to right, #d4af37, #f9e076); /* 金色渐变 */
+        color: #1a0a2e;     /* 深紫色文字 */
+        border: none;       /* 无边框 */
+        border-radius: 8px; /* 圆角 */
+        cursor: pointer;    /* 指针样式 */
+        transition: all 0.3s; /* 过渡效果 */
+        font-weight: bold;  /* 粗体 */
+        letter-spacing: 1px; /* 字间距 */
+        margin-top: 20px;   /* 上边距 */
+        display: none;      /* 初始隐藏 */
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); /* 阴影 */
+    }
+
+    /* 复制按钮悬停效果 */
+    .copy-btn:hover {
+        background: linear-gradient(to right, #f9e076, #d4af37); /* 反向渐变 */
+        transform: translateY(-2px); /* 上移 */
+    }
+
+    /* 空结果提示 */
+    .empty-result {
+        text-align: center; /* 文本居中 */
+        color: #c0b3d0;     /* 淡紫色文字 */
+        padding: 40px 20px; /* 内边距 */
+        font-size: 1.3rem;  /* 字体大小 */
+        opacity: 0.8;       /* 透明度 */
+    }
+    
+    /* 响应式设计 - 768px以下屏幕 */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column; /* 垂直排列 */
         }
-        video {
-            max-width: 90%;
-            margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            outline: none;
+        
+        .header h1 {
+            font-size: 2.2rem; /* 缩小字体 */
         }
-        .button-container {
-            position: fixed;
-            top: 2px;
-            right: 20px;
-            z-index: 10;
-            display: flex;
-            gap: 10px;
+        
+        .control-panel, .result-panel {
+            min-width: 100%; /* 宽度100% */
         }
-        .button-container button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            transition: opacity 0.3s;
+        
+        .header p {
+            padding: 0 15px; /* 增加内边距 */
         }
-        .button-container button:hover {
-            opacity: 0.7;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            min-width: 160px;
-            z-index: 100;
-        }
-        .dropdown-content a {
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.3s;
-        }
-        .dropdown-content a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <div style="position: relative;" id="videoContainer">
-        <video id="videoPlayer" controls muted autoplay preload="auto" aria-label="视频播放器">
-            <source src="" type="video/mp4">
-            您的浏览器不支持HTML5视频。
-        </video>
-        <div class="button-container">
-            <div class="dropdown">
-                <button onclick="toggleDropdown()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 20 20">
-                        <path fill="#cccccc" d="M17.854 4.354a.5.5 0 0 0-.708-.708L15.5 5.293l-.646-.647a.5.5 0 0 0-.708.708l1 1a.5.5 0 0 0 .708 0zm0 9.792a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647l1.646-1.647a.5.5 0 0 1 .708 0M2.5 5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zM2 15.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5"/>
-                    </svg>
-                </button>
-                <div class="dropdown-content" id="dropdownContent">
-                    <a href="#" onclick="changeVideo(0)">线路1</a>
-                    <a href="#" onclick="changeVideo(1)">线路2</a>
-                    <a href="#" onclick="changeVideo(2)">女大</a>
-                    <a href="#" onclick="changeVideo(3)">黑丝</a>
-                    <a href="#" onclick="changeVideo(4)">慢摇</a>
-                    <a href="#" onclick="changeVideo(5)">吊带</a>
-                    <a href="#" onclick="changeVideo(6)">清纯</a>
-                    <a href="#" onclick="changeVideo(7)">女高</a>
-                    <a href="#" onclick="changeVideo(8)">甜妹</a>
+    <div class="header">
+        <h1>双色球号码生成器</h1>
+        <p>自定义生成双色球投注号码：选择红球数量(6-33)、蓝球数量(1-16)以及生成组数(1-10)</p>
+    </div>
+    
+    <div class="container">
+        <div class="control-panel">
+            <h2 class="panel-title">参数设置</h2>
+            
+            <div class="control-group">
+                <label class="control-label">红球数量: <span id="redValue">6</span></label>
+                <div class="slider-container">
+                    <span class="value-display">6</span>
+                    <input type="range" id="redSlider" min="6" max="33" value="6">
+                    <span class="value-display">33</span>
                 </div>
             </div>
-            <button id="unmuteButton" onclick="unmuteVideo()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
-                    <g fill="none" stroke="#cccccc" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 7.5S21 9 21 11.5s-1.5 4-1.5 4"/>
-                        <path d="M2 13.857v-3.714a2 2 0 0 1 2-2h2.9a1 1 0 0 0 .55-.165l6-3.956a1 1 0 0 1 1.55.835v14.286a1 1 0 0 1-1.55.835l-6-3.956a1 1 0 0 0-.55-.165H4a2 2 0 0 1-2-2Z"/>
-                    </g>
-                </svg>
-            </button>
-            <button id="fullscreenButton" onclick="openFullscreen()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
-                    <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 9L4 4m0 0v4m0-4h4m7 5l5-5m0 0v4m0-4h-4M9 15l-5 5m0 0v-4m0 4h4m7-5l5 5m0 0v-4m0 4h-4"/>
-                </svg>
-            </button>
+            
+            <div class="control-group">
+                <label class="control-label">蓝球数量: <span id="blueValue">1</span></label>
+                <div class="slider-container">
+                    <span class="value-display">1</span>
+                    <input type="range" id="blueSlider" min="1" max="16" value="1">
+                    <span class="value-display">16</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label">生成组数: <span id="groupValue">1</span></label>
+                <div class="slider-container">
+                    <span class="value-display">1</span>
+                    <input type="range" id="groupSlider" min="1" max="10" value="1">
+                    <span class="value-display">10</span>
+                </div>
+            </div>
+            
+            <button id="generateBtn" class="generate-btn">生成双色球号码</button>
+        </div>
+        
+        <div class="result-panel">
+            <h2 class="panel-title">生成结果</h2>
+            <div id="resultsContainer" class="results-container">
+                <div class="empty-result">设置参数后点击生成按钮，将在此显示双色球号码</div>
+            </div>
+            <button id="copyBtn" class="copy-btn">复制结果</button>
         </div>
     </div>
+    
+    <div class="info-panel">
+        <h2>双色球玩法说明</h2>
+        <div class="tips">
+            <div class="tip">
+                <h3>游戏规则</h3>
+                <p>双色球由红球和蓝球组成，红球从1-33中选择6个，蓝球从1-16中选择1个。每周二、四、日开奖。</p>
+            </div>
+            <div class="tip">
+                <h3>中奖条件</h3>
+                <p>一等奖：6红+1蓝；二等奖：6红；三等奖：5红+1蓝；四等奖：5红或4红+1蓝；五等奖：4红或3红+1蓝；六等奖：1蓝球。</p>
+            </div>
+            <div class="tip">
+                <h3>使用技巧</h3>
+                <p>本工具可用于生成随机投注号码，增加选号多样性。建议结合冷热号分析、连号、奇偶分布等策略进行选号。</p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const apiUrls = [
-            'http://api.yujn.cn/api/zzxjj.php?type=video',
-            'https://api.linhun.vip/api/Littlesistervideo?type=video&apiKey=48b0b2ef0f8483326c3c5424911d5924',
-            'https://api.yujn.cn/api/nvda.php?type=video',
-            'http://api.yujn.cn/api/heisis.php?type=video',
-            'http://api.yujn.cn/api/manyao.php?type=video',
-            'http://api.yujn.cn/api/diaodai.php?type=video',
-            'http://api.yujn.cn/api/qingchun.php?type=video',
-            'http://api.yujn.cn/api/nvgao.php?type=video',
-            'http://api.yujn.cn/api/tianmei.php?type=video'
-        ];
-        let currentVideoIndex = 0;
-        let currentApiIndex = 0;
-        let controlTimer;
-        let startX;
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const redSlider = document.getElementById('redSlider');
+            const blueSlider = document.getElementById('blueSlider');
+            const groupSlider = document.getElementById('groupSlider');
+            const redValue = document.getElementById('redValue');
+            const blueValue = document.getElementById('blueValue');
+            const groupValue = document.getElementById('groupValue');
+            const generateBtn = document.getElementById('generateBtn');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const copyBtn = document.getElementById('copyBtn');
 
-        function changeVideo(index) {
-            currentApiIndex = index;
-            currentVideoIndex = 0;
-            loadVideo();
-            toggleDropdown();
-        }
-
-        function loadVideo() {
-            const videoPlayer = document.getElementById('videoPlayer');
-            videoPlayer.removeAttribute('controls');
-            const apiUrl = `${apiUrls[currentApiIndex]}&index=${currentVideoIndex}`;
-            videoPlayer.src = apiUrl;
-            videoPlayer.onloadedmetadata = () => {
-                videoPlayer.play();
-                resetControlTimer();
-            };
-            videoPlayer.onended = refreshVideo;
-            videoPlayer.onerror = handleVideoError;
-        }
-
-        function toggleControls() {
-            const videoPlayer = document.getElementById('videoPlayer');
-            if (videoPlayer.hasAttribute('controls')) {
-                videoPlayer.removeAttribute('controls');
-            } else {
-                videoPlayer.setAttribute('controls', 'controls');
-                resetControlTimer();
+            // 更新滑块值显示
+            function updateSliderDisplay(slider, displayElement) {
+                displayElement.textContent = slider.value;
             }
-        }
-
-        function resetControlTimer() {
-            clearTimeout(controlTimer);
-            controlTimer = setTimeout(() => {
-                const videoPlayer = document.getElementById('videoPlayer');
-                videoPlayer.removeAttribute('controls');
-            }, 5000);
-        }
-
-        const videoPlayer = document.getElementById('videoPlayer');
-        videoPlayer.addEventListener('click', toggleControls);
-
-        document.addEventListener('fullscreenchange', () => {
-            if (document.fullscreenElement) {
-                resetControlTimer();
-            } else {
-                videoPlayer.removeAttribute('controls');
-            }
-        });
-
-        function handleVideoError() {
-            console.error('当前视频无法播放，尝试加载下一个视频...');
-            refreshVideo();
-        }
-
-        function refreshVideo() {
-            currentVideoIndex++;
-            loadVideo();
-        }
-
-        window.onload = () => {
-            loadVideo();
-        };
-
-        function openFullscreen() {
-            const videoPlayer = document.getElementById('videoPlayer');
-            if (videoPlayer.requestFullscreen) {
-                videoPlayer.requestFullscreen();
-            }
-        }
-
-        function unmuteVideo() {
-            const videoPlayer = document.getElementById('videoPlayer');
-            videoPlayer.muted = false; 
-            document.getElementById('unmuteButton').style.display = 'none'; 
-        }
-
-        function toggleDropdown() {
-            const dropdownContent = document.getElementById('dropdownContent');
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        }
-
-        document.addEventListener('click', function(event) {
-            const dropdownContent = document.getElementById('dropdownContent');
-            const dropdownButton = document.querySelector('.dropdown button');
-            if (!dropdownButton.contains(event.target) && !dropdownContent.contains(event.target)) {
-                dropdownContent.style.display = 'none';
-            }
-        });
-
-        videoPlayer.addEventListener('touchstart', function(event) {
-            startX = event.touches[0].clientX;
-        });
-
-        videoPlayer.addEventListener('touchmove', function(event) {
-            const moveX = event.touches[0].clientX;
-            const diffX = startX - moveX;
-
-            if (Math.abs(diffX) > 50) {
-                if (diffX > 0) {
-                    currentVideoIndex++;
-                } else {
-                    currentVideoIndex = Math.max(0, currentVideoIndex - 1);
+            
+            // 初始化显示
+            updateSliderDisplay(redSlider, redValue);
+            updateSliderDisplay(blueSlider, blueValue);
+            updateSliderDisplay(groupSlider, groupValue);
+            
+            // 滑块事件监听
+            redSlider.addEventListener('input', () => updateSliderDisplay(redSlider, redValue));
+            blueSlider.addEventListener('input', () => updateSliderDisplay(blueSlider, blueValue));
+            groupSlider.addEventListener('input', () => updateSliderDisplay(groupSlider, groupValue));
+            
+            // 生成随机不重复数字
+            function generateUniqueNumbers(min, max, count) {
+                const numbers = [];
+                while (numbers.length < count) {
+                    const num = Math.floor(Math.random() * (max - min + 1)) + min;
+                    if (!numbers.includes(num)) {
+                        numbers.push(num);
+                    }
                 }
-                loadVideo();
+                return numbers.sort((a, b) => a - b);
             }
+            
+            // 格式化数字为两位数
+            function formatNumber(num) {
+                return num < 10 ? '0' + num : num;
+            }
+            
+            // 生成一组双色球号码
+            function generateLotteryNumbers() {
+                const redCount = parseInt(redSlider.value);
+                const blueCount = parseInt(blueSlider.value);
+                
+                const redNumbers = generateUniqueNumbers(1, 33, redCount);
+                const blueNumbers = generateUniqueNumbers(1, 16, blueCount);
+                
+                return {
+                    red: redNumbers,
+                    blue: blueNumbers
+                };
+            }
+            
+            // 显示生成的号码
+            function displayResults() {
+                const groupCount = parseInt(groupSlider.value);
+                resultsContainer.innerHTML = '';
+                
+                if (groupCount === 0) {
+                    resultsContainer.innerHTML = '<div class="empty-result">请选择生成组数（1-10）</div>';
+                    copyBtn.style.display = 'none';
+                    return;
+                }
+                
+                for (let i = 1; i <= groupCount; i++) {
+                    const group = document.createElement('div');
+                    group.className = 'result-group';
+                    
+                    const groupHeader = document.createElement('div');
+                    groupHeader.className = 'group-header';
+                    
+                    const groupTitle = document.createElement('div');
+                    groupTitle.className = 'group-title';
+                    groupTitle.textContent = `第 ${i} 组`;
+                    
+                    groupHeader.appendChild(groupTitle);
+                    group.appendChild(groupHeader);
+                    
+                    const numbersContainer = document.createElement('div');
+                    numbersContainer.className = 'numbers-container';
+                    
+                    const numbers = generateLotteryNumbers();
+                    
+                    // 添加红球
+                    numbers.red.forEach(num => {
+                        const ball = document.createElement('div');
+                        ball.className = 'red-ball ball-animation';
+                        ball.textContent = formatNumber(num);
+                        numbersContainer.appendChild(ball);
+                    });
+                    
+                    // 添加分隔符
+                    const divider = document.createElement('div');
+                    divider.className = 'divider';
+                    divider.textContent = '+';
+                    numbersContainer.appendChild(divider);
+                    
+                    // 添加蓝球
+                    numbers.blue.forEach(num => {
+                        const ball = document.createElement('div');
+                        ball.className = 'blue-ball ball-animation';
+                        ball.textContent = formatNumber(num);
+                        numbersContainer.appendChild(ball);
+                    });
+                    
+                    group.appendChild(numbersContainer);
+                    resultsContainer.appendChild(group);
+                    
+                    // 添加动画延迟
+                    const balls = numbersContainer.querySelectorAll('.red-ball, .blue-ball');
+                    balls.forEach((ball, index) => {
+                        ball.style.animationDelay = `${index * 0.1}s`;
+                    });
+                }
+
+                // 显示复制按钮
+                copyBtn.style.display = 'block';
+            }
+            
+            // 复制结果到剪贴板
+            function copyResults() {
+                const resultsText = resultsContainer.innerText.replace(/\n/g, ' '); // 将换行替换为空格
+                navigator.clipboard.writeText(resultsText).then(() => {
+                    alert('结果已复制到剪贴板！');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制内容');
+                });
+            }
+            
+            // 生成按钮事件
+            generateBtn.addEventListener('click', displayResults);
+            copyBtn.addEventListener('click', copyResults);
+            
+            // 初始加载时生成一组号码
+            displayResults();
         });
     </script>
 </body>
